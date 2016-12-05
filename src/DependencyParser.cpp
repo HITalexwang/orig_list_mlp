@@ -1072,7 +1072,6 @@ Dataset DependencyParser::gen_train_samples_graph(
                 vector<int> features = get_features(c);
                 // int label = system->get_transition_id(oracle);
                 vector<int> label(num_trans, -1);
-                cerr << endl;
                 for (int j = 0; j < num_trans; ++j)
                 {
                     string action = system->transitions[j];
