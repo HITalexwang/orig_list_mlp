@@ -403,6 +403,14 @@ void DependencyParser::extract_transition_sequence(const char * train_file, cons
             while (!monitor->is_terminal(c))
             {
                 string oracle = monitor->get_oracle(c, graphs[i]);
+                if (oracle == "-E-"){
+                    error_cnt++;
+                    cerr << endl<< "id:" << i  <<"len:" << sents[i].n << "first: " << sents[i].words[0] <<" ";
+                    if (sents[i].n > 2)
+                        cerr<<sents[i].words[1]<<" " << sents[i].words[2]<<endl;
+                    cerr << c.info() << endl;
+                    break;
+                }
                 monitor->apply(c, oracle);
                 //cout << " " << oracle;
                 oracle_writer << oracle << endl;
