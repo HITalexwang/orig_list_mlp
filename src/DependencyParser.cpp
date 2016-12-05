@@ -195,13 +195,13 @@ void DependencyParser::train(
 
             double LF = result["LF"];
             double UF = result["UF"];
-            double NUF = result["NUF"];
-            double NLF = result["NLF"];
+            //double NUF = result["NUF"];
+            //double NLF = result["NLF"];
 
-            cerr << "UF(dev)=" << UF << "%" << endl;
-            cerr << "LF(dev)=" << LF << "%" << endl;
-            cerr << "NUF(dev)=" << NUF << "%" << endl;
-            cerr << "NLF(dev)=" << NLF << "%" << endl;
+            cerr << "UAS(dev)=" << UF << "%" << endl;
+            cerr << "LAS(dev)=" << LF << "%" << endl;
+            //cerr << "NUF(dev)=" << NUF << "%" << endl;
+            //cerr << "NLF(dev)=" << NLF << "%" << endl;
             //cerr << "UAS(dev) = " << uas << "%" << endl;
             //cerr << "LAS(dev) = " << las << "%" << endl;
             //cerr << "UEM(dev) = " << uem << "%" << endl;

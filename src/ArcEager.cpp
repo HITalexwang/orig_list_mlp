@@ -84,7 +84,7 @@ bool ArcEager::can_apply(Configuration& c, const string& t)
     else if (t == "NS")
         return (n_buffer > 0);
     else if (t == "NR") // w has head
-        return (n_stack > 1 && w_head == 1);
+        return (n_stack > 0 && w_head == 1);
     else if (t == "NP") // can not pass root(0)
         return (n_stack > 1 && n_buffer > 0);
 }
@@ -209,5 +209,5 @@ Configuration ArcEager::init_configuration(DependencySent& sent)
 
 bool ArcEager::is_terminal(Configuration& c)
 {
-    return (c.get_buffer_size() == 0 && c.get_stack_size() == 1);
+    return (c.get_buffer_size() == 0);
 }
