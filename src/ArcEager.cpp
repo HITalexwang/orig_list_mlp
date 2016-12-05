@@ -172,13 +172,14 @@ const string ArcEager::get_oracle(
                 return "RP(" + graph.get_arc_label(b, w) + ")";
             }
     }
+    else if ( w > 0
+            && !c.has_other_child(w, graph)
+            && !c.lack_head(w, graph))
+        return "NR";
     else if ( !c.has_other_child_in_stack(b, graph)
             && !c.has_other_head_in_stack(b, graph) 
             && !c.buffer.empty())
         return "NS";
-    else if ( !c.has_other_child(w, graph)
-            && !c.lack_head(w, graph))
-        return "NR";
     else if ( w > 0)
         return "NP";
     else
