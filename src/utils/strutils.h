@@ -420,7 +420,8 @@ inline bool is_double(const std::string &str) {
 inline bool is_double_sci(const std::string &str) {
     std::istringstream iss(str);
     double dbl;
-    return (iss >> dbl);
+    //return (iss >> dbl);
+    return is_double(str);
 }
 
 inline bool is_boolean(const std::string &str) {

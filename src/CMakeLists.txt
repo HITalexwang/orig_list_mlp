@@ -28,5 +28,5 @@ set (clnndep_SRC
      time.h
      Util.h)
 
-add_executable (eagernndep ${clnndep_SRC})
+add_executable (origlistmlp ${clnndep_SRC})
 

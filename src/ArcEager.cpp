@@ -63,18 +63,18 @@ bool ArcEager::can_apply(Configuration& c, const string& t)
     root_label = labels[labels.size() - 1];
 
     if (startswith(t, "LR") || startswith(t, "LP"))
-        return (w > 0 && b > 0 && !c.has_path_to(w, b) && !c.is_root(w));
+        return (w > 0 && b > 0 && !c.has_path_to(w, b) && !c.is_root(w) && w_head == 0);
     else if (startswith(t, "RS") || startswith(t, "RP")){
         string l = t.substr(3, t.length() - 4);
         if (w == 0)
             return (l == root_label && !c.graph.is_single_root() && b_head == 0);
         else
-            return (l != root_label && b > 0 && w >0 && !c.has_path_to(b, w));
+            return (l != root_label && b > 0 && w >0 && !c.has_path_to(b, w) && b_head == 0);
     }
     else if (t == "NS")
         return (n_buffer > 0);
     else if (t == "NR") // w has head
-        return (n_stack > 1 && w_head > 0);
+        return (n_stack > 1 && w_head == 1);
     else if (t == "NP") // can not pass root(0)
         return (n_stack > 1 && n_buffer > 0);
 }
