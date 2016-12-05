@@ -388,7 +388,7 @@ void DependencyParser::extract_transition_sequence(const char * train_file, cons
         monitor =  new ArcEager(ldict, config.language, config.labeled);
     else if (config.oracle == "listsystem")
         monitor =  new ListSystem(ldict, config.language, config.labeled);
-
+    int error_cnt = 0;
     for (size_t i = 0; i < sents.size(); ++i)
     {
         //cout << "[" << i << "]";
@@ -420,6 +420,7 @@ void DependencyParser::extract_transition_sequence(const char * train_file, cons
         //cout << endl;
         //oracle_writer << endl;
     }
+    cerr <<endl<< "#Error sentence number:" << error_cnt << endl;
 }
 
 void DependencyParser::extract_transition_sequence(string & train_file, string & oracle_file)
