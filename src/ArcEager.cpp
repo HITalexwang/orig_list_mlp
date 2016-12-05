@@ -31,9 +31,9 @@ ArcEager::~ArcEager()
 
 void ArcEager::make_transitions()
 {
-    for (size_t i = 0; i < labels.size() - 1; ++i)
-        transitions.push_back("LR(" + labels[i] + ")"); // left reduce
     for (size_t i = 0; i < labels.size(); ++i)
+        transitions.push_back("LR(" + labels[i] + ")"); // left reduce, only LR has ROOT label
+    for (size_t i = 0; i < labels.size() - 1; ++i)
         transitions.push_back("RS(" + labels[i] + ")"); // right shift
     for (size_t i = 0; i < labels.size() - 1; ++i)
         transitions.push_back("LP(" + labels[i] + ")"); // left pass
@@ -61,7 +61,7 @@ bool ArcEager::can_apply(Configuration& c, const string& t)
     int w_head = head_w.size();
     int b_head = head_b.size();
     root_label = labels[labels.size() - 1];
-
+    /*
     if (startswith(t, "LR") || startswith(t, "LP"))
         return (w > 0 && b > 0 && !c.has_path_to(w, b) && !c.is_root(w) && w_head == 0);
     else if (startswith(t, "RS") || startswith(t, "RP")){
@@ -70,6 +70,16 @@ bool ArcEager::can_apply(Configuration& c, const string& t)
             return (l == root_label && !c.graph.is_single_root() && b_head == 0);
         else
             return (l != root_label && b > 0 && w >0 && !c.has_path_to(b, w) && b_head == 0);
+    }*/
+    //changed input buffer, root to the last of the buffer, swap L and R
+    if (startswith(t, "RS") || startswith(t, "RP"))
+        return (w > 0 && b > 0 && !c.has_path_to(b, w) && !c.is_root(b) && b_head == 0);
+    else if (startswith(t, "LR") || startswith(t, "LP")){
+        string l = t.substr(3, t.length() - 4);
+        if (b == 0)
+            return (l == root_label && !c.graph.is_single_root() && w_head == 0);
+        else
+            return (l != root_label && b > 0 && w >0 && !c.has_path_to(w, b) && w_head == 0);
     }
     else if (t == "NS")
         return (n_buffer > 0);
@@ -198,5 +208,5 @@ Configuration ArcEager::init_configuration(DependencySent& sent)
 
 bool ArcEager::is_terminal(Configuration& c)
 {
-    return (c.get_buffer_size() == 0);
+    return (c.get_buffer_size() == 0 && c.get_stack_size() == 1);
 }
